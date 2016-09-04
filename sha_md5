@@ -1,4 +1,4 @@
-#!/bin/env bash
+#!/bin/bash
 
 ###########################
 # Comprovación de sha y md5 #
@@ -16,8 +16,10 @@ sha_md5=$(zenity --list --title="Seleccion de tipo de comprovación" --text="¿Q
 
 case $sha_md5 in
 	"sha"|"sha")
-		funcion_sha ;;
+		echo "Estoy en sha" ;;
+		#funcion_sha ;;
 	"md5"|"md5")
-		funcion_md5 ;;
+		echo "Estoy en md5" ;;
+		#funcion_md5 ;;
 esac
 
