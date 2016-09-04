@@ -4,6 +4,20 @@
 # Comprovación de sha y md5 #
 ###########################
 
+#Creación de funciones encargadas de realizar la comprobacion del archivo
+funcion_sha () {
+	ruta_archivo=$1;echo $ruta_archivo;
+	clave_original=$(zenity --entry --title="Clave sha original" --text="Ingresa la clave sha original" --entry-text="aqui la clave");
+	clave_actual=$(shasum $ruta_archivo);
+	
+	if [ $clave_original = $clave_actual ] 
+	then
+		$(zenity --info --title="Resultado de comprovación sha" --text="Las claves coinciden la integridad de tu archivo no a sido violada");
+	else
+			$(zenity --error	--title="Resultado de comprobacion sha" --text="Las claves no coinciden la integridad de tu archivo a sido violada");
+	fi
+}
+
 #hacemos una seleccion del archivo del cual queremos comprobar su clave sha o md5
 
 archivo=$(zenity --file-selection --title="Selecciona un archivo para comprobar su autenticidad");
@@ -16,10 +30,10 @@ sha_md5=$(zenity --list --title="Seleccion de tipo de comprovación" --text="¿Q
 
 case $sha_md5 in
 	"sha"|"sha")
-		echo "Estoy en sha" ;;
-		#funcion_sha ;;
+		echo "Estoy en sha";
+		funcion_sha $archivo;;
 	"md5"|"md5")
-		echo "Estoy en md5" ;;
+		echo "Estoy en md5";;
 		#funcion_md5 ;;
 esac
 
