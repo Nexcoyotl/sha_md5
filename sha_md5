@@ -5,12 +5,13 @@
 ###########################
 
 echo "Comprobación de sha y md5";
-echo "inicia el programa";
+echo "Inicia el programa";
 
 #Creación de funciones encargadas de realizar la comprobación del archivo
 funcion_sha () {
 	ruta_archivo=$1;
-	clave_original=$(zenity --entry --title="Clave sha original" --text="Ingresa la clave sha original" --entry-text="aqui la clave");
+	clave_original=$(zenity --entry --title="Clave sha original" --text="Ingresa la clave sha original" --entry-text="Aquí la clave");
+	echo "Generando clave sha del archivo por favor espera esto puede tardar unos minutos (depende del peso del archivo)";
 	clave_actual=$(echo "$(shasum $ruta_archivo)" | grep '[a-zA-Z0-9]* [^/]' | cut -f 1 -d ' '); 
 	echo "clave_original = $clave_original";
 	echo "clave_actual  = $clave_actual";
@@ -24,8 +25,9 @@ funcion_sha () {
 
 funcion_md5 () {
 	ruta_archivo=$1;
-	clave_original=$(zenity --entry --title="Clave sha original" --text="Ingresa la clave sha original" --entry-text="aqui la clave");
+	clave_original=$(zenity --entry --title="Clave sha original" --text="Ingresa la clave sha original" --entry-text="Aquí la clave");
 	clave_actual=$(md5sum $ruta_archivo);
+	echo "Generando clave md5 del archivo por favor espera esto puede tardar unos minutos (depende del peso del archivo)";
 	clave_actual=$(echo "$(md5sum $ruta_archivo)" | grep '[a-zA-Z0-9]* [^/]' | cut -f 1 -d ' ');
 	echo "clave_original = $clave_original";
 	echo "clave_actual  = $clave_actual";
