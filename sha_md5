@@ -1,0 +1,13 @@
+#!/bin/env bash
+
+###########################
+# Comprovación de sha y md5 #
+###########################
+
+#hacemos una seleccion del archivo del cual queremos comprobar su clave sha o md5
+
+archivo=$(zenity --file-selection --title="Selecciona un archivo para comprobar su autenticidad");
+
+#seleccionamos el tipo de comprovación a realizar sha o md5
+
+sha_md5=$(zenity --list --title="Seleccion de tipo de comprovación" --text="¿Que tipo de comprovación deceas hacer?" --radiolist --column="radio" --column="opción" "1" "sha" "2" "md5");
