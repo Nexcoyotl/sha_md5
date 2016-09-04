@@ -1,10 +1,13 @@
 #!/bin/bash
 
 ###########################
-# Comprovación de sha y md5 #
+# Comprobación de sha y md5 #
 ###########################
 
-#Creación de funciones encargadas de realizar la comprobacion del archivo
+echo "Comprobación de sha y md5";
+echo "inicia el programa";
+
+#Creación de funciones encargadas de realizar la comprobación del archivo
 funcion_sha () {
 	ruta_archivo=$1;
 	clave_original=$(zenity --entry --title="Clave sha original" --text="Ingresa la clave sha original" --entry-text="aqui la clave");
@@ -13,9 +16,9 @@ funcion_sha () {
 	echo "clave_actual  = $clave_actual";
 	if [ $clave_original = $clave_actual ] 
 	then
-		$(zenity --info --title="Resultado de comprovación sha" --text="Las claves coinciden la integridad de tu archivo no a sido violada\nclave_original = $clave_original\nclave_actual  = $clave_actual");
+		$(zenity --info --title="Resultado de comprobación sha" --text="Las claves coinciden la integridad de tu archivo no a sido violada\n\nclave_original = $clave_original\nclave_actual  = $clave_actual");
 	else
-			$(zenity --error	--title="Resultado de comprobacion sha" --text="Las claves no coinciden la integridad de tu archivo a sido violada\nclave_original = $clave_original\nclave_actual  = $clave_actual");
+			$(zenity --error	--title="Resultado de comprobación sha" --text="Las claves no coinciden la integridad de tu archivo a sido violada\n\nclave_original = $clave_original\nclave_actual  = $clave_actual");
 	fi
 }
 
@@ -28,31 +31,31 @@ funcion_md5 () {
 	echo "clave_actual  = $clave_actual";
 	if [ $clave_original = $clave_actual ] 
 	then
-		$(zenity --info --title="Resultado de comprovación md5" --text="Las claves coinciden la integridad de tu archivo no a sido violada\nclave_original = $clave_original\nclave_actual  = $clave_actual");
+		$(zenity --info --title="Resultado de comprobación md5" --text="Las claves coinciden la integridad de tu archivo no a sido violada\n\nclave_original = $clave_original\nclave_actual  = $clave_actual");
 	else
-			$(zenity --error	--title="Resultado de comprobacion md5" --text="Las claves no coinciden la integridad de tu archivo a sido violada\nclave_original = $clave_original\nclave_actual  = $clave_actual");
+			$(zenity --error	--title="Resultado de comprobación md5" --text="Las claves no coinciden la integridad de tu archivo a sido violada\n\nclave_original = $clave_original\nclave_actual  = $clave_actual");
 	fi
 }
  
-#hacemos una seleccion del archivo del cual queremos comprobar su clave sha o md5
+#hacemos una selección del archivo del cual queremos comprobar su clave sha o md5
 
 archivo=$(zenity --file-selection --title="Selecciona un archivo para comprobar su autenticidad");
 
-#seleccionamos el tipo de comprovación a realizar sha o md5
+#seleccionamos el tipo de comprobación a realizar sha o md5
 
-sha_md5=$(zenity --list --title="Seleccion de tipo de comprovación" --text="¿Que tipo de comprovación deceas hacer?" --radiolist --column="radio" --column="opción" "1" "sha" "2" "md5");
+sha_md5=$(zenity --list --title="Selección de tipo de comprobación" --text="¿Que tipo de comprobación deseas hacer?" --radiolist --column="radio" --column="opción" "1" "sha" "2" "md5");
 
 #Creación de estructura case para decidir que proceso ejecutar
 
 case $sha_md5 in
 	"sha"|"sha")
-		echo "Estoy en sha";
+		echo "Estas realizando una comprobación de integridad sha";
 		funcion_sha $archivo ;;
 	"md5"|"md5")
-		echo "Estoy en md5";
+		echo "Estas realizando una comprobación de integridad md5";
 		funcion_md5 $archivo ;;
 	*)
-		$(zenity --error --title="Error de selección" --text="Opción no valida porfavor selecciona una por lo menos") ;;
+		$(zenity --error --title="Error de selección" --text="Opción no valida por favor selecciona una por lo menos") ;;
 esac
 
-echo "Fin del programa :(";
+echo "Fin del programa";
