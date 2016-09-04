@@ -8,13 +8,14 @@
 funcion_sha () {
 	ruta_archivo=$1;
 	clave_original=$(zenity --entry --title="Clave sha original" --text="Ingresa la clave sha original" --entry-text="aqui la clave");
-	clave_actual=$(shasum $ruta_archivo);
-	
+	clave_actual=$(echo "$(shasum $ruta_archivo)" | grep '[a-zA-Z0-9]* [^/]' | cut -f 1 -d ' '); 
+	echo "clave_original = $clave_original";
+	echo "clave_actual  = $clave_actual";
 	if [ $clave_original = $clave_actual ] 
 	then
-		$(zenity --info --title="Resultado de comprovación sha" --text="Las claves coinciden la integridad de tu archivo no a sido violada");
+		$(zenity --info --title="Resultado de comprovación sha" --text="Las claves coinciden la integridad de tu archivo no a sido violada\nclave_original = $clave_original\nclave_actual  = $clave_actual");
 	else
-			$(zenity --error	--title="Resultado de comprobacion sha" --text="Las claves no coinciden la integridad de tu archivo a sido violada");
+			$(zenity --error	--title="Resultado de comprobacion sha" --text="Las claves no coinciden la integridad de tu archivo a sido violada\nclave_original = $clave_original\nclave_actual  = $clave_actual");
 	fi
 }
 
@@ -22,12 +23,14 @@ funcion_md5 () {
 	ruta_archivo=$1;
 	clave_original=$(zenity --entry --title="Clave sha original" --text="Ingresa la clave sha original" --entry-text="aqui la clave");
 	clave_actual=$(md5sum $ruta_archivo);
-	
+	clave_actual=$(echo "$(md5sum $ruta_archivo)" | grep '[a-zA-Z0-9]* [^/]' | cut -f 1 -d ' ');
+	echo "clave_original = $clave_original";
+	echo "clave_actual  = $clave_actual";
 	if [ $clave_original = $clave_actual ] 
 	then
-		$(zenity --info --title="Resultado de comprovación md5" --text="Las claves coinciden la integridad de tu archivo no a sido violada");
+		$(zenity --info --title="Resultado de comprovación md5" --text="Las claves coinciden la integridad de tu archivo no a sido violada\nclave_original = $clave_original\nclave_actual  = $clave_actual");
 	else
-			$(zenity --error	--title="Resultado de comprobacion md5" --text="Las claves no coinciden la integridad de tu archivo a sido violada");
+			$(zenity --error	--title="Resultado de comprobacion md5" --text="Las claves no coinciden la integridad de tu archivo a sido violada\nclave_original = $clave_original\nclave_actual  = $clave_actual");
 	fi
 }
  
