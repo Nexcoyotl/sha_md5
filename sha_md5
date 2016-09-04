@@ -11,3 +11,13 @@ archivo=$(zenity --file-selection --title="Selecciona un archivo para comprobar 
 #seleccionamos el tipo de comprovación a realizar sha o md5
 
 sha_md5=$(zenity --list --title="Seleccion de tipo de comprovación" --text="¿Que tipo de comprovación deceas hacer?" --radiolist --column="radio" --column="opción" "1" "sha" "2" "md5");
+
+#Creación de estructura case para decidir que proceso ejecutar
+
+case $sha_md5 in
+	"sha"|"sha")
+		funcion_sha ;;
+	"md5"|"md5")
+		funcion_md5 ;;
+esac
+
