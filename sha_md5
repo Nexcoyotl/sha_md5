@@ -32,6 +32,12 @@ funcion_sha () {
 funcion_md5 () {
 	ruta_archivo=$1;
 	clave_original=$(zenity --entry --title="Clave sha original" --text="Ingresa la clave sha original" --entry-text="Aquí la clave");
+	#Manejo de error al ingresar la clave md5
+	if [ $clave_original="" ]
+	then
+		$(zenity --error --title="Error al ingresar clave" --text="No puedo continuar sin la clave md5");
+		exit 0;
+	fi
 	clave_actual=$(md5sum $ruta_archivo);
 	echo "Generando clave md5 del archivo por favor espera esto puede tardar unos minutos (depende del peso del archivo)";
 	clave_actual=$(echo "$(md5sum $ruta_archivo)" | grep '[a-zA-Z0-9]* [^/]' | cut -f 1 -d ' ');
