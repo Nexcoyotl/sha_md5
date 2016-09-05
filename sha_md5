@@ -12,9 +12,10 @@ funcion_sha () {
 	ruta_archivo=$1;
 	clave_original=$(zenity --entry --title="Clave sha original" --text="Ingresa la clave sha original" --entry-text="Aquí la clave");
 	#Manejo de error al ingresar la clave sha
-	if [ $clave_original="" ]
+	if [ "$clave_original" = "" ]
 	then
 		$(zenity --error --title="Error al ingresar clave" --text="No puedo continuar sin la clave sha");
+		echo "Fin del programa";
 		exit 0;
 	fi
 	echo "Generando clave sha del archivo por favor espera esto puede tardar unos minutos (depende del peso del archivo)";
@@ -33,9 +34,10 @@ funcion_md5 () {
 	ruta_archivo=$1;
 	clave_original=$(zenity --entry --title="Clave sha original" --text="Ingresa la clave sha original" --entry-text="Aquí la clave");
 	#Manejo de error al ingresar la clave md5
-	if [ $clave_original="" ]
+	if [ "$clave_original" = "" ]
 	then
 		$(zenity --error --title="Error al ingresar clave" --text="No puedo continuar sin la clave md5");
+		echo "Fin del programa";
 		exit 0;
 	fi
 	clave_actual=$(md5sum $ruta_archivo);
@@ -56,9 +58,10 @@ funcion_md5 () {
 archivo=$(zenity --file-selection --title="Selecciona un archivo para comprobar su autenticidad");
 
 #Manejo de error al no seleccionar un archivo
-if [ $archivo="" ]
+if [ "$archivo" = "" ]
 then
 	$(zenity --error --title="Error de selección" --text="No puedo continuar sin la selección de un archivo");
+	echo "Fin del programa";
 	exit 0;
 fi
 
