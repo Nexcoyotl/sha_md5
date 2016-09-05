@@ -11,6 +11,12 @@ echo "Inicia el programa";
 funcion_sha () {
 	ruta_archivo=$1;
 	clave_original=$(zenity --entry --title="Clave sha original" --text="Ingresa la clave sha original" --entry-text="Aquí la clave");
+	#Manejo de error al ingresar la clave sha
+	if [ $clave_original="" ]
+	then
+		$(zenity --error --title="Error al ingresar clave" --text="No puedo continuar sin la clave sha");
+		exit 0;
+	fi
 	echo "Generando clave sha del archivo por favor espera esto puede tardar unos minutos (depende del peso del archivo)";
 	clave_actual=$(echo "$(shasum $ruta_archivo)" | grep '[a-zA-Z0-9]* [^/]' | cut -f 1 -d ' '); 
 	echo "clave_original = $clave_original";
@@ -42,11 +48,14 @@ funcion_md5 () {
 #hacemos una selección del archivo del cual queremos comprobar su clave sha o md5
 
 archivo=$(zenity --file-selection --title="Selecciona un archivo para comprobar su autenticidad");
+
+#Manejo de error al no seleccionar un archivo
 if [ $archivo="" ]
 then
 	$(zenity --error --title="Error de selección" --text="No puedo continuar sin la selección de un archivo");
 	exit 0;
 fi
+
 #seleccionamos el tipo de comprobación a realizar sha o md5
 
 sha_md5=$(zenity --list --title="Selección de tipo de comprobación" --text="¿Que tipo de comprobación deseas hacer?" --radiolist --column="radio" --column="opción" "1" "sha" "2" "md5");
