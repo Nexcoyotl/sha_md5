@@ -42,7 +42,11 @@ funcion_md5 () {
 #hacemos una selección del archivo del cual queremos comprobar su clave sha o md5
 
 archivo=$(zenity --file-selection --title="Selecciona un archivo para comprobar su autenticidad");
-
+if [ $archivo="" ]
+then
+	$(zenity --error --title="Error de selección" --text="No puedo continuar sin la selección de un archivo");
+	exit 0;
+fi
 #seleccionamos el tipo de comprobación a realizar sha o md5
 
 sha_md5=$(zenity --list --title="Selección de tipo de comprobación" --text="¿Que tipo de comprobación deseas hacer?" --radiolist --column="radio" --column="opción" "1" "sha" "2" "md5");
